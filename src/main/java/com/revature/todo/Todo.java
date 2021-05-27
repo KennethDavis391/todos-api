@@ -18,7 +18,7 @@ import java.util.StringJoiner;
  */
 @JacksonXmlRootElement
 @Entity
-public class Todo {
+public class Todo implements Cloneable{
 
 	@Id
 	@GeneratedValue
