@@ -53,171 +53,21 @@ public class TodoController {
 		throw new PathVariableExpectedException(id);
 	}
 
-	public void copyPasteMe() {
-		return;
-	}
-
-	public void lotsOfDuplicates() {
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
-		copyPasteMe();
+	@ApiOperation(value = "View a Todo by ID", response = Todo.class)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Successfully found Todo by provided ID"),
+			@ApiResponse(code = 404, message = "Unable to find Todo by provided ID")
+	})
+	@GetMapping(value = "/duplicate/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE, MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<?> duplicateFindById(@PathVariable("id") Long id, @RequestHeader(value = "Accept", defaultValue = MediaType.APPLICATION_JSON_VALUE) String accept) {
+		if (id != null && id > 0) {
+			Todo todo = todoService.findById(id);
+			if (MediaType.TEXT_PLAIN_VALUE.equals(accept)) {
+				return ResponseEntity.ok(todo.toString());
+			}
+			return ResponseEntity.ok(todoService.findById(id));
+		}
+		throw new PathVariableExpectedException(id);
 	}
 
 	@ApiOperation(value = "Create a Todo from a TodoFrom")
